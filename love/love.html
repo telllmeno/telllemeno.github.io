@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для моей любимой ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Varela+Round&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffd1dc;
+            /* Анимированный градиент фона */
+            background: linear-gradient(135deg, #ffd1dc 0%, #ff9eb5 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            font-family: 'Varela Round', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #555;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(255, 105, 180, 0.4);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            border: 8px solid #fff;
+            position: relative;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+        }
+
+        .bow {
+            position: absolute;
+            font-size: 50px;
+            color: #ff69b4;
+            animation: floatBow 3s ease-in-out infinite;
+            filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.1));
+        }
+        .bow-tl { top: -20px; left: -20px; transform: rotate(-15deg); animation-delay: 0s; }
+        .bow-tr { top: -20px; right: -20px; transform: rotate(15deg); animation-delay: 1.5s; }
+
+        @keyframes floatBow {
+            0%, 100% { transform: translateY(0) rotate(-15deg); }
+            50% { transform: translateY(-10px) rotate(-10deg); }
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            color: #ff1493;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0px #ffb6c1;
+            animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .hello-kitty-img {
+            width: 160px;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+            border-radius: 50%;
+            border: 5px solid #ffb6c1;
+            padding: 5px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            animation: spinSlow 10s linear infinite;
+        }
+
+        .hello-kitty-img:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        @keyframes spinSlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .reasons-box {
+            margin-top: 30px;
+            text-align: left;
+            min-height: 50px;
+        }
+
+        .reason-card {
+            background: #fff0f5;
+            border-left: 6px solid #ff69b4;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            box-shadow: 0 5px 15px rgba(255, 182, 193, 0.3);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reason-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+            transition: 0.5s;
+        }
+
+        .reason-card:hover::before {
+            left: 100%;
+        }
+
+        .reason-card:hover {
+            transform: scale(1.02) translateX(0);
+            background: #ffe6f0;
+        }
+
+        .reason-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reason-card span {
+            font-weight: bold;
+            color: #ff1493;
+            font-size: 1.3rem;
+            margin-right: 10px;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-5px);}
+            60% {transform: translateY(-3px);}
+        }
+
+        button {
+            background: #ff69b4;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Varela Round', sans-serif;
+            margin-top: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.4);
+            position: relative;
+            overflow: hidden;
+            animation: pulseBtn 2s infinite;
+        }
+
+        @keyframes pulseBtn {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 105, 180, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 105, 180, 0); }
+        }
+
+        button:hover {
+            background: #ff1493;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(255, 20, 147, 0.5);
+            animation: none; /* Останавливаем пульсацию при наведении */
+        }
+
+        /* Фоновые сердечки */
+        .bg-heart {
+            position: fixed;
+            top: -10%;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 20px;
+            z-index: 1;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Контейнер для фоновых сердечек -->
+    <div id="bg-hearts"></div>
+
+    <div class="container">
+        <div class="bow bow-tl">🎀</div>
+        <div class="bow bow-tr">🎀</div>
+
+        <img src="https://upload.wikimedia.org/wikipedia/en/0/05/Hello_kitty_character_portrait.png" alt="Hello Kitty" class="hello-kitty-img">
+
+        <h1>Привет, моя сладкая! 🌸</h1>
+        <p style="font-size: 1.1rem; color: #777;">Нажимай кнопку, чтобы узнать секрет...</p>
+
+        <div class="reasons-box" id="reasonsContainer">
+            <!-- Сюда будут добавляться причины -->
+        </div>
+
+        <button onclick="showNextReason()">Узнать причину ❤️</button>
+    </div>
+
+    <script>
+        // === СПИСОК ПРИЧИН (Можешь менять тут) ===
+        const reasons = [
+            "Твоя улыбка освещает мой день ☀️",
+            "Ты готовишь самый вкусный кофе ☕",
+            "С тобой мне всегда уютно и спокойно 🏠",
+            "Ты понимаешь меня без слов 🤫",
+            "Твои глаза — самые красивые в мире 👀",
+            "Ты делаешь меня лучше каждый день 🚀",
+            "Я люблю, как ты смеешься 😂",
+            "Ты моя самая лучшая подруга 👯‍♀️",
+            "Просто потому что это ТЫ! 💖"
+        ];
+        // ===================================
+
+        let currentIndex = 0;
+        const container = document.getElementById('reasonsContainer');
+        const btn = document.querySelector('button');
+
+        function showNextReason() {
+            if (currentIndex < reasons.length) {
+                const card = document.createElement('div');
+                card.classList.add('reason-card');
+                
+                // Добавляем текст
+                card.innerHTML = `<span>${currentIndex + 1}.</span> ${reasons[currentIndex]}`;
+                
+                container.appendChild(card);
+
+                // Задержка для срабатывания CSS transition
+                setTimeout(() => {
+                    card.classList.add('visible');
+                    // Звук "дзынь" (опционально, можно убрать)
+                    // const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-software-interface-start-2574.mp3');
+                    // audio.volume = 0.2;
+                    // audio.play().catch(e => console.log('Audio play failed'));
+                }, 50);
+
+                currentIndex++;
+
+                // Плавная прокрутка к новой карточке
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                if (currentIndex === reasons.length) {
+                    btn.innerHTML = "Я люблю тебя бесконечно! ❤️";
+                    btn.style.background = "#ff1493";
+                    btn.style.animation = "none";
+                    createExplosion();
+                }
+            }
+        }
+
+        // Функция для создания падающих сердечек на фоне
+        function createBgHearts() {
+            const heartContainer = document.getElementById('bg-hearts');
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('bg-heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+                heart.style.animationDuration = Math.random() * 3 + 4 + 's';
+                heartContainer.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 7000);
+            }, 300);
+        }
+
+        // Запускаем фоновые сердечки сразу
+        createBgHearts();
+
+        // Финальный взрыв сердечек
+        function createExplosion() {
+            for(let i=0; i<50; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '❤️';
+                    heart.style.position = 'fixed';
+                    heart.style.left = '50%';
+                    heart.style.top = '50%';
+                    heart.style.fontSize = Math.random() * 30 + 20 + 'px';
+                    heart.style.transform = `translate(-50%, -50%)`;
+                    heart.style.zIndex = '100';
+                    heart.style.transition = 'all 1s ease-out';
+                    document.body.appendChild(heart);
+
+                    setTimeout(() => {
+                        const x = (Math.random() - 0.5) * window.innerWidth;
+                        const y = (Math.random() - 0.5) * window.innerHeight;
+                        heart.style.transform = `translate(${x}px, ${y}px) rotate(${Math.random()*360}deg)`;
+                        heart.style.opacity = '0';
+                    }, 50);
+
+                    setTimeout(() => heart.remove(), 1000);
+                }, i * 50);
+            }
+        }
+    </script>
+</body>
+</html>
