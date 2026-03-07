@@ -21,9 +21,9 @@
         body {
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #ffd1dc 0%, #ff9eb5 50%, #ffb6c1 100%);
+            background: linear-gradient(-45deg, #ffd1dc, #ffb6c1, #ff9eb5, #ffc0cb);
             background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            animation: gradientBG 10s ease infinite;
             font-family: 'Varela Round', sans-serif;
             display: flex;
             justify-content: center;
@@ -34,13 +34,30 @@
             padding-top: 20px;
             padding-bottom: 40px;
             -webkit-overflow-scrolling: touch;
-            perspective: 1000px;
+            position: relative;
         }
 
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
+        }
+
+        /* Фоновые сердечки - делаем ярче */
+        .bg-heart {
+            position: fixed;
+            top: -10%;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 24px;
+            z-index: 0;
+            pointer-events: none;
+            animation: fall linear infinite;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+            -webkit-text-stroke: 1px rgba(255, 20, 147, 0.3);
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
         }
 
         .container {
@@ -51,13 +68,14 @@
             text-align: center;
             width: 90%;
             max-width: 500px;
-            border: 8px solid #fff;
+            border: 8px solid rgba(255, 255, 255, 0.9);
             position: relative;
             z-index: 10;
             margin: 10px;
             transform-style: preserve-3d;
             transition: transform 0.3s ease-out;
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .bow {
@@ -76,43 +94,81 @@
             50% { transform: translateY(-12px) rotate(-10deg); }
         }
 
+        /* Hello Kitty стиль с помощью CSS и эмодзи */
+        .hello-kitty-container {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            position: relative;
+            animation: rotateGlow 8s linear infinite;
+        }
+
+        .hello-kitty-main {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fff 0%, #fff0f5 100%);
+            border-radius: 50%;
+            border: 6px solid #ffb6c1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            box-shadow: 0 8px 30px rgba(255, 182, 193, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hello-kitty-main::before {
+            content: '🎀';
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            font-size: 30px;
+            animation: bowWiggle 2s ease-in-out infinite;
+        }
+
+        @keyframes bowWiggle {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        @keyframes rotateGlow {
+            0% { transform: rotate(0deg); box-shadow: 0 8px 25px rgba(255, 182, 193, 0.5); }
+            50% { box-shadow: 0 8px 40px rgba(255, 105, 180, 0.7); }
+            100% { transform: rotate(360deg); box-shadow: 0 8px 25px rgba(255, 182, 193, 0.5); }
+        }
+
         h1 {
             font-family: 'Pacifico', cursive;
             color: #ff1493;
-            font-size: 2.2rem;
+            font-size: 2rem;
             margin: 15px 0;
-            text-shadow: 3px 3px 0px #ffb6c1;
+            text-shadow: 2px 2px 0px #ffb6c1, 4px 4px 0px rgba(255, 182, 193, 0.3);
             line-height: 1.3;
             -webkit-user-select: text;
             user-select: text;
             opacity: 0;
-            animation: typeIn 2s steps(30) forwards;
+            animation: fadeInScale 1.5s ease forwards;
             animation-delay: 0.5s;
         }
 
-        @keyframes typeIn {
-            from { opacity: 0; width: 0; }
-            to { opacity: 1; width: 100%; }
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
 
-        .hello-kitty-img {
-            width: 150px;
-            height: 150px;
-            object-fit: contain;
-            margin: 20px auto;
-            display: block;
-            border-radius: 50%;
-            border: 5px solid #ffb6c1;
-            padding: 5px;
-            background: white;
-            box-shadow: 0 8px 25px rgba(255, 182, 193, 0.4);
-            animation: rotateGlow 8s linear infinite;
+        .subtitle {
+            font-size: 1.1rem;
+            color: #777;
+            margin-bottom: 25px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 2s;
         }
 
-        @keyframes rotateGlow {
-            0% { transform: rotate(0deg); box-shadow: 0 8px 25px rgba(255, 182, 193, 0.4); }
-            50% { box-shadow: 0 8px 35px rgba(255, 105, 180, 0.6); }
-            100% { transform: rotate(360deg); box-shadow: 0 8px 25px rgba(255, 182, 193, 0.4); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .reasons-box {
@@ -178,21 +234,21 @@
             60% {transform: translateY(-3px);}
         }
 
-        /* Блестящие частицы */
         .sparkle {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: white;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, #fff 0%, #ff69b4 100%);
             border-radius: 50%;
             pointer-events: none;
             animation: sparkleAnim 1.5s ease-out forwards;
+            box-shadow: 0 0 10px #ff69b4;
         }
 
         @keyframes sparkleAnim {
-            0% { opacity: 1; transform: scale(0); }
-            50% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0; transform: scale(0.5); }
+            0% { opacity: 1; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.5) rotate(180deg); }
+            100% { opacity: 0; transform: scale(0.5) rotate(360deg); }
         }
 
         button {
@@ -224,7 +280,7 @@
 
         @keyframes breathe {
             0%, 100% { filter: brightness(1); }
-            50% { filter: brightness(1.1); }
+            50% { filter: brightness(1.15); }
         }
 
         button::after {
@@ -234,7 +290,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
             opacity: 0;
             transform: scale(0.5);
             transition: opacity 0.3s, transform 0.3s;
@@ -249,33 +305,26 @@
             transform: scale(0.95);
         }
 
-        .bg-heart {
-            position: fixed;
-            top: -10%;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 20px;
-            z-index: 1;
-            pointer-events: none;
-            animation: fall linear infinite;
-            filter: drop-shadow(0 0 5px rgba(255, 105, 180, 0.5));
-        }
-
-        @keyframes fall {
-            to { transform: translateY(110vh) rotate(360deg); }
-        }
-
-        /* Анимация для финального взрыва */
         .explosion-heart {
             position: fixed;
-            font-size: 30px;
+            font-size: 35px;
             z-index: 100;
             pointer-events: none;
-            animation: explode 1s ease-out forwards;
+            animation: explode 1.2s ease-out forwards;
+            filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.8));
         }
 
         @keyframes explode {
-            0% { transform: translate(0, 0) scale(0.5); opacity: 1; }
-            100% { transform: translate(var(--tx), var(--ty)) scale(1.5); opacity: 0; }
+            0% { transform: translate(0, 0) scale(0.5) rotate(0deg); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(720deg); opacity: 0; }
+        }
+
+        /* Адаптация для маленьких экранов iPhone */
+        @media screen and (max-width: 375px) {
+            h1 { font-size: 1.7rem; }
+            .hello-kitty-container { width: 130px; height: 130px; }
+            .hello-kitty-main { font-size: 70px; }
+            button { font-size: 1.1rem; padding: 18px 30px; }
         }
     </style>
 </head>
@@ -287,10 +336,13 @@
         <div class="bow bow-tl">🎀</div>
         <div class="bow bow-tr">🎀</div>
 
-        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/heart.png" alt="❤️" class="hello-kitty-img">
+        <!-- Hello Kitty через CSS и эмодзи -->
+        <div class="hello-kitty-container">
+            <div class="hello-kitty-main">🐱</div>
+        </div>
 
         <h1>Привет, моя сладкая! 🌸</h1>
-        <p style="font-size: 1.1rem; color: #777; margin-bottom: 25px; opacity: 0; animation: fadeIn 1s forwards; animation-delay: 2.5s;">Нажимай кнопку, чтобы узнать секрет...</p>
+        <p class="subtitle">Нажимай кнопку, чтобы узнать секрет...</p>
 
         <div class="reasons-box" id="reasonsContainer"></div>
 
@@ -319,12 +371,10 @@
         // Параллакс эффект для iPhone
         if (window.DeviceOrientationEvent) {
             window.addEventListener('deviceorientation', function(event) {
-                const tiltX = event.gamma * 0.5; // Наклон влево-вправо
-                const tiltY = event.beta * 0.5;  // Наклон вперед-назад
+                const tiltX = (event.gamma || 0) * 0.3;
+                const tiltY = (event.beta || 0) * 0.3;
                 
-                if (tiltX && tiltY) {
-                    mainContainer.style.transform = `rotateY(${tiltX}deg) rotateX(${-tiltY}deg)`;
-                }
+                mainContainer.style.transform = `rotateY(${tiltX}deg) rotateX(${-tiltY}deg)`;
             });
         }
 
@@ -343,7 +393,6 @@
                 card.innerHTML = '<span>' + (currentIndex + 1) + '.</span> ' + reasons[currentIndex];
                 container.appendChild(card);
 
-                // Создаем блестки вокруг карточки
                 createSparkles(card);
 
                 setTimeout(() => {
@@ -352,7 +401,9 @@
 
                 currentIndex++;
 
-                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(() => {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
 
                 if (currentIndex === reasons.length) {
                     btn.innerHTML = "Я люблю тебя бесконечно! ❤️";
@@ -371,54 +422,56 @@
 
         function createSparkles(element) {
             const rect = element.getBoundingClientRect();
-            for (let i = 0; i < 8; i++) {
-                const sparkle = document.createElement('div');
-                sparkle.classList.add('sparkle');
-                
-                const x = Math.random() * rect.width;
-                const y = Math.random() * rect.height;
-                
-                sparkle.style.left = (rect.left + x) + 'px';
-                sparkle.style.top = (rect.top + y) + 'px';
-                sparkle.style.animationDelay = (i * 0.1) + 's';
-                
-                document.body.appendChild(sparkle);
-                
-                setTimeout(() => sparkle.remove(), 1500);
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.classList.add('sparkle');
+                    
+                    const x = Math.random() * rect.width;
+                    const y = Math.random() * rect.height;
+                    
+                    sparkle.style.left = (rect.left + x) + 'px';
+                    sparkle.style.top = (rect.top + y) + 'px';
+                    
+                    document.body.appendChild(sparkle);
+                    
+                    setTimeout(() => sparkle.remove(), 1500);
+                }, i * 50);
             }
         }
 
         function createBgHearts() {
             const heartContainer = document.getElementById('bg-hearts');
-            const hearts = ['❤️', '💖', '💗', '💓', '💕'];
+            const hearts = ['❤️', '💖', '💗', '💓', '💕', '🌸', '✨'];
             
             setInterval(() => {
                 const heart = document.createElement('div');
                 heart.classList.add('bg-heart');
                 heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
                 heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.fontSize = (Math.random() * 25 + 15) + 'px';
+                heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
                 heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
-                heart.style.opacity = Math.random() * 0.5 + 0.3;
+                heart.style.opacity = Math.random() * 0.4 + 0.6;
                 heartContainer.appendChild(heart);
 
                 setTimeout(() => heart.remove(), 10000);
-            }, 400);
+            }, 300);
         }
 
+        // Запускаем фоновые сердечки сразу
         createBgHearts();
 
         function createExplosion() {
-            const hearts = ['❤️', '💖', '💗', '💓', '💕', '🌸', '🎀'];
+            const hearts = ['❤️', '💖', '', '💓', '💕', '🌸', '🎀', '✨'];
             
-            for(let i = 0; i < 80; i++) {
+            for(let i = 0; i < 100; i++) {
                 setTimeout(() => {
                     const heart = document.createElement('div');
                     heart.classList.add('explosion-heart');
                     heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
                     
                     const angle = Math.random() * Math.PI * 2;
-                    const distance = Math.random() * 300 + 100;
+                    const distance = Math.random() * 350 + 150;
                     const tx = Math.cos(angle) * distance;
                     const ty = Math.sin(angle) * distance;
                     
@@ -426,27 +479,17 @@
                     heart.style.setProperty('--ty', ty + 'px');
                     heart.style.left = '50%';
                     heart.style.top = '50%';
-                    heart.style.fontSize = (Math.random() * 40 + 20) + 'px';
+                    heart.style.fontSize = (Math.random() * 40 + 25) + 'px';
                     
                     document.body.appendChild(heart);
                     
-                    setTimeout(() => heart.remove(), 1000);
-                }, i * 30);
+                    setTimeout(() => heart.remove(), 1200);
+                }, i * 25);
             }
         }
 
-        // Анимация появления текста
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(10px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-        `;
-        document.head.appendChild(style);
-
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Site loaded successfully with enhanced animations!');
+            console.log('Site loaded successfully!');
         });
     </script>
 </body>
