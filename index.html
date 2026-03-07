@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="format-detection" content="telephone=no">
-    <title>Для моей любимой ❤️</title>
+    <title>Для моей любимой Светочки ❤️</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Varela+Round&display=swap');
 
@@ -43,7 +43,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Фоновые сердечки - делаем ярче */
         .bg-heart {
             position: fixed;
             top: -10%;
@@ -53,7 +52,6 @@
             pointer-events: none;
             animation: fall linear infinite;
             text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
-            -webkit-text-stroke: 1px rgba(255, 20, 147, 0.3);
         }
 
         @keyframes fall {
@@ -94,35 +92,51 @@
             50% { transform: translateY(-12px) rotate(-10deg); }
         }
 
-        /* Hello Kitty стиль с помощью CSS и эмодзи */
-        .hello-kitty-container {
+        /* Hello Kitty Image */
+        .hello-kitty-img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin: 20px auto;
+            display: block;
+            border-radius: 50%;
+            border: 6px solid #ffb6c1;
+            padding: 5px;
+            background: white;
+            box-shadow: 0 8px 30px rgba(255, 182, 193, 0.5);
+            animation: rotateGlow 8s linear infinite;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        @keyframes rotateGlow {
+            0% { transform: rotate(0deg); box-shadow: 0 8px 25px rgba(255, 182, 193, 0.5); }
+            50% { box-shadow: 0 8px 40px rgba(255, 105, 180, 0.7); }
+            100% { transform: rotate(360deg); box-shadow: 0 8px 25px rgba(255, 182, 193, 0.5); }
+        }
+
+        /* Fallback если картинка не загрузится */
+        .hello-kitty-fallback {
             width: 150px;
             height: 150px;
             margin: 20px auto;
-            position: relative;
-            animation: rotateGlow 8s linear infinite;
-        }
-
-        .hello-kitty-main {
-            width: 100%;
-            height: 100%;
             background: linear-gradient(135deg, #fff 0%, #fff0f5 100%);
             border-radius: 50%;
             border: 6px solid #ffb6c1;
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
             font-size: 80px;
             box-shadow: 0 8px 30px rgba(255, 182, 193, 0.5);
+            animation: rotateGlow 8s linear infinite;
             position: relative;
-            overflow: hidden;
         }
 
-        .hello-kitty-main::before {
+        .hello-kitty-fallback::before {
             content: '🎀';
             position: absolute;
-            top: 10px;
-            right: 25px;
+            top: 15px;
+            right: 30px;
             font-size: 30px;
             animation: bowWiggle 2s ease-in-out infinite;
         }
@@ -130,12 +144,6 @@
         @keyframes bowWiggle {
             0%, 100% { transform: rotate(-10deg); }
             50% { transform: rotate(10deg); }
-        }
-
-        @keyframes rotateGlow {
-            0% { transform: rotate(0deg); box-shadow: 0 8px 25px rgba(255, 182, 193, 0.5); }
-            50% { box-shadow: 0 8px 40px rgba(255, 105, 180, 0.7); }
-            100% { transform: rotate(360deg); box-shadow: 0 8px 25px rgba(255, 182, 193, 0.5); }
         }
 
         h1 {
@@ -319,11 +327,9 @@
             100% { transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(720deg); opacity: 0; }
         }
 
-        /* Адаптация для маленьких экранов iPhone */
         @media screen and (max-width: 375px) {
             h1 { font-size: 1.7rem; }
-            .hello-kitty-container { width: 130px; height: 130px; }
-            .hello-kitty-main { font-size: 70px; }
+            .hello-kitty-img, .hello-kitty-fallback { width: 130px; height: 130px; font-size: 70px; }
             button { font-size: 1.1rem; padding: 18px 30px; }
         }
     </style>
@@ -336,13 +342,20 @@
         <div class="bow bow-tl">🎀</div>
         <div class="bow bow-tr">🎀</div>
 
-        <!-- Hello Kitty через CSS и эмодзи -->
-        <div class="hello-kitty-container">
-            <div class="hello-kitty-main">🐱</div>
+        <!-- Hello Kitty Image с fallback -->
+        <img src="https://upload.wikimedia.org/wikipedia/en/0/05/Hello_kitty_character_portrait.png" 
+             alt="Hello Kitty" 
+             class="hello-kitty-img" 
+             id="hkImage"
+             onerror="showFallback()"
+             crossorigin="anonymous">
+        
+        <div class="hello-kitty-fallback" id="hkFallback">
+            🐱
         </div>
 
-        <h1>Привет, моя сладкая! 🌸</h1>
-        <p class="subtitle">Нажимай кнопку, чтобы узнать секрет...</p>
+        <h1>Привет, мое солнышко! 🌸</h1>
+        <p class="subtitle">Нажимай кнопку, чтобы узнать причину почему я тебя люблю...</p>
 
         <div class="reasons-box" id="reasonsContainer"></div>
 
@@ -352,13 +365,13 @@
     <script>
         const reasons = [
             "Твоя улыбка освещает мой день ☀️",
-            "Ты готовишь самый вкусный кофе ☕",
+            "Ты готовишь самые вкусные блины) ☕",
             "С тобой мне всегда уютно и спокойно 🏠",
-            "Ты понимаешь меня без слов 🤫",
+            "Твой запах сводит меня с ума",
             "Твои глаза — самые красивые в мире 👀",
             "Ты делаешь меня лучше каждый день 🚀",
             "Я люблю, как ты смеешься 😂",
-            "Ты моя самая лучшая подруга 👯‍♀️",
+            "Ты моя самая лучшая девушка 👯‍♀️",
             "Просто потому что это ТЫ! 💖"
         ];
 
@@ -367,6 +380,23 @@
         const container = document.getElementById('reasonsContainer');
         const btn = document.getElementById('actionBtn');
         const mainContainer = document.getElementById('mainContainer');
+        const hkImage = document.getElementById('hkImage');
+        const hkFallback = document.getElementById('hkFallback');
+
+        // Fallback если картинка не загрузится
+        function showFallback() {
+            hkImage.style.display = 'none';
+            hkFallback.style.display = 'flex';
+        }
+
+        // Пробуем загрузить картинку с таймаутом
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                if (!hkImage.complete || hkImage.naturalHeight === 0) {
+                    showFallback();
+                }
+            }, 3000);
+        });
 
         // Параллакс эффект для iPhone
         if (window.DeviceOrientationEvent) {
@@ -442,7 +472,7 @@
 
         function createBgHearts() {
             const heartContainer = document.getElementById('bg-hearts');
-            const hearts = ['❤️', '💖', '💗', '💓', '💕', '🌸', '✨'];
+            const hearts = ['❤️', '💖', '', '💓', '', '🌸', '✨'];
             
             setInterval(() => {
                 const heart = document.createElement('div');
@@ -458,11 +488,10 @@
             }, 300);
         }
 
-        // Запускаем фоновые сердечки сразу
         createBgHearts();
 
         function createExplosion() {
-            const hearts = ['❤️', '💖', '', '💓', '💕', '🌸', '🎀', '✨'];
+            const hearts = ['❤️', '💖', '💗', '💓', '💕', '🌸', '', '✨'];
             
             for(let i = 0; i < 100; i++) {
                 setTimeout(() => {
@@ -489,7 +518,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Site loaded successfully!');
+            console.log('Site loaded successfully with Hello Kitty!');
         });
     </script>
 </body>
